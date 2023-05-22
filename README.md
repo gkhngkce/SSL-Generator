@@ -9,7 +9,7 @@ This program basically runs le64 code in your local machine to create certificat
 
 ### Prerequisites
 
-Project written using C# .Net Framework so you need .Net Framework 4.5.2 or higher
+Project written with C# .Net Framework so you need .Net Framework 4.5.2 or higher
 
 ### Installing
 
