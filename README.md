@@ -22,15 +22,20 @@ Unzip Debug file and just run _SSLgenerator.exe
 
 ##Additionally
 Just fill your informations to add new website
+
 ![image](https://github.com/gkhngkce/SSL-Generator/assets/20401028/a2f99f56-4e5b-41c4-8930-06732e381614)
 
 Select your website to create certificate then click Generate Certificate
+
 ![image](https://github.com/gkhngkce/SSL-Generator/assets/20401028/26c85635-9d9d-4cd7-8d7b-096d279121b3)
 
 le64 will progress rest of the steps for you and your certificate is ready to copy. You can double click to copy.
+
 ![image](https://github.com/gkhngkce/SSL-Generator/assets/20401028/20103cfd-89af-4d25-a363-c86edb81abd0)
 
 After that you can go to your cPanel > SSL/TLS > Manage SSL Certificates> Select Your Domain
+
 ![Screenshot_4](https://github.com/gkhngkce/SSL-Generator/assets/20401028/64775765-3e20-4747-91c7-fb72dca96663)
+
 Thats it.
 You need to run it every 3 months to renew the certificate. You can check the website that i used for this project to check details of the certificate.
