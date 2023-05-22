@@ -175,16 +175,20 @@ namespace _SSLgenerator
         {
             if (File.Exists(path))
             {
-                string text = File.ReadAllText(path);
-                infoList = JsonConvert.DeserializeObject<List<information>>(text);
-
-                lstbDelete.Items.Clear();
-                cbSelectWebsite.Items.Clear();
-                foreach (information item in infoList)
+                try
                 {
-                    cbSelectWebsite.Items.Add(item.name);
-                    lstbDelete.Items.Add(item.name);
+                    string text = File.ReadAllText(path);
+                    infoList = JsonConvert.DeserializeObject<List<information>>(text);
+
+                    lstbDelete.Items.Clear();
+                    cbSelectWebsite.Items.Clear();
+                    foreach (information item in infoList)
+                    {
+                        cbSelectWebsite.Items.Add(item.name);
+                        lstbDelete.Items.Add(item.name);
+                    }
                 }
+                catch { }
             }
             else
             {
@@ -204,25 +208,27 @@ namespace _SSLgenerator
         {
 
             bool isexist = false;
-
-            try
+            if (!url.Contains("Ex: ") && !user.Contains("Ex: ") && !pass.Contains("Ex: ") && !folder.Contains("Ex: "))
             {
-                FtpWebRequest request = (FtpWebRequest)WebRequest.Create(url+folder);
-                request.Credentials = new NetworkCredential(user, pass);
-                request.Method = WebRequestMethods.Ftp.ListDirectory;
-                using (FtpWebResponse response = (FtpWebResponse)request.GetResponse())
+                try
                 {
-                    isexist = true;
-                }
-            }
-            catch (WebException ex)
-            {
-                if (ex.Response != null)
-                {
-                    FtpWebResponse response = (FtpWebResponse)ex.Response;
-                    if (response.StatusCode == FtpStatusCode.ActionNotTakenFileUnavailable)
+                    FtpWebRequest request = (FtpWebRequest)WebRequest.Create(url + folder);
+                    request.Credentials = new NetworkCredential(user, pass);
+                    request.Method = WebRequestMethods.Ftp.ListDirectory;
+                    using (FtpWebResponse response = (FtpWebResponse)request.GetResponse())
                     {
-                        return false;
+                        isexist = true;
+                    }
+                }
+                catch (WebException ex)
+                {
+                    if (ex.Response != null)
+                    {
+                        FtpWebResponse response = (FtpWebResponse)ex.Response;
+                        if (response.StatusCode == FtpStatusCode.ActionNotTakenFileUnavailable)
+                        {
+                            return false;
+                        }
                     }
                 }
             }
@@ -300,19 +306,26 @@ namespace _SSLgenerator
 
         private void btnCheckFtp_Click(object sender, EventArgs e)
         {
-            if(checkFtpConnection(txtFtpUrl.Text,txtFtpUser.Text,txtFtpPass.Text,txtWebsites.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.None)[0]))
+            if (txtFtpUrl.Text.Contains("ftp://"))
             {
-                MessageBox.Show("Success");
+                if (checkFtpConnection(txtFtpUrl.Text, txtFtpUser.Text, txtFtpPass.Text, txtWebsites.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.None)[0]))
+                {
+                    MessageBox.Show("Success");
+                }
+                else
+                {
+                    MessageBox.Show("Failed to connect!");
+                }
             }
             else
             {
-                MessageBox.Show("Failed to connect!");
+                MessageBox.Show("Invalid ftp url\nEx: ftp://facebook.com");
             }
         }
 
         private void btnGetPrevious_Click(object sender, EventArgs e)
         {
-            if(infoList.Count>0)
+            if(cbSelectWebsite.Items.Count>0 && infoList!=null)
             {
                 txtFtpUrl.Text = infoList[infoList.Count - 1].ftpUrl;
                 txtFtpUser.Text = infoList[infoList.Count - 1].ftpUsername;
