@@ -6,7 +6,12 @@ This project for who is suffering from hosting brands who does not let you autom
 
 ## Getting Started
 
-This program basically runs le64 code in your local machine to create certificate. As verification it uploads files to .well-known/acme-challenge folder in your hosting. After validation it creates certificate and private key files for you to copy.
+This program basically runs le64 code in your local machine to create certificate. As verification it uploads files to .well-known/acme-challenge folder in your hosting. After validation it creates certificate and private key files for you to copy. You can do it manually by yourself using [le64.exe](https://github.com/do-know/Crypt-LE) with the code below. But you need to upload files manually then confirm it then copy the certification codes etc. For one website may be it is ok to do unfortunatelly i have around 10 websites that i renew every 3 month that is not the case for me.
+
+You can run this code with using le64 by yourself for free SSL from Let's Encrypt to create your own. Do not forget to change parameters in the brackets [ ]
+```
+le64.exe --api 2 --key [nameaccount].key --csr [namemydomain].csr --csr-key key.key --crt crt.crt --domains "[domains splitted by ,(comma)]" --generate-missing --handle-as http --live -export-pfx  [namepfxpswsifre] -email "[email]"
+```
 
 ### Prerequisites
 
@@ -14,7 +19,7 @@ Project written with C# .Net Framework so you need .Net Framework 4.5.2 or highe
 
 ### Installing
 
-You can download executables from Releases.
+You can download executables from [Releases](https://github.com/gkhngkce/SSL-Generator/releases).
 
 ## Running
 
